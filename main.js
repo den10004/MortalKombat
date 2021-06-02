@@ -38,14 +38,14 @@ function createPlayer(name, hp, img) {
     $img.classList.add('img')
     $img.src = `${img}`
 
-
-  
-    $root.appendChild($player1)
+ 
+    
     $player1.appendChild($progressbar)
     $progressbar.appendChild($life)
     $progressbar.appendChild($name)
     $player1.appendChild($character)
     $character.appendChild($img)
+    $root.appendChild($player1)
 }
 
 createPlayer(player1.name, player1.hp, player1.img)

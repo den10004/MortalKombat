@@ -1,3 +1,3 @@
 # Марафон по JS. В разработке
 
-https://den10004.github.io/MortalKombat/
+https://github.com/den10004/MortalKombat.git
