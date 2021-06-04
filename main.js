@@ -21,6 +21,8 @@ const player2 = {
 }
 
 
+
+
 function createPlayer(name, hp, img) {
     const $player1 = document.createElement('div')
     $player1.classList.add('player1')
