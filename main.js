@@ -1,4 +1,4 @@
-const $root = document.querySelector('.arenas')
+const $arenas = document.querySelector('.arenas')
 const $randomBotton = document.querySelector('.button')
 
 const player1 = {
@@ -22,6 +22,10 @@ const player2 = {
         console.log(name + "Fight...")
     }
 }
+
+const playerName1 = player1.name
+const playerName2 = player2.name
+
 
 function createElement(tag, className) {
     const $tag = document.createElement(tag)
@@ -50,19 +54,19 @@ function createPlayer(playerObj) {
     $character.appendChild($img)
     $player.appendChild($progressbar)
     $player.appendChild($character)
-    $root.appendChild($player)
+    $arenas.appendChild($player)
 
     return $player
 }
 
 function changeHP(player) {
     const $playerLife = document.querySelector('.player' + player.player + ' .life');
-    player.hp -= Math.ceil(Math.random() * 10) 
+    player.hp -= Math.ceil(Math.random() * 20) 
     $playerLife.style.width = player.hp + '%';
     
 
     if (player.hp <= 0) {
-        $root.appendChild(playerLose(player.name))
+        $arenas.appendChild(playerLose(player.name))
         $playerLife.style.width = 0 + '%';
         $randomBotton.disabled = true
     } 
@@ -70,22 +74,23 @@ function changeHP(player) {
 
 function playerLose(name) {
     const $loseTitle = createElement('div', 'loseTitle')
-   if (name === 'SCORPION') {
-     $loseTitle.innerText = 'DEKSTER' + ' won'
+   if (name === playerName1) {
+     $loseTitle.innerText = playerName2 + ' won'
    }
    else {
-    $loseTitle.innerText = 'SCORPION' + ' won' 
+    $loseTitle.innerText = playerName1 + ' won' 
    }
     return $loseTitle
 }
+
 
 $randomBotton.addEventListener('click', function () {
     changeHP(player1)
     changeHP(player2)
 })
 
-$root.appendChild(createPlayer(player1))
-$root.appendChild(createPlayer(player2))
+$arenas.appendChild(createPlayer(player1))
+$arenas.appendChild(createPlayer(player2))
 
 
 
