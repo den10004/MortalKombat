@@ -87,6 +87,7 @@ function renderHP() {
 
 function playerLose(name) {
     const $loseTitle = createElement('div', 'loseTitle')
+    createReloadButton()
    
    if(name) {
     $loseTitle.innerText = name + ' wins'   
@@ -104,9 +105,16 @@ function createReloadButton () {
     const $reloadWrap = createElement('div', 'reloadWrap')
     const $button = createElement('button', 'button')
 
-    $reloadWrap.appendChild($button)
-    return  $reloadWrap
+    $reloadWrap.appendChild($button, 'restart')
+
+    $reloadWrap.addEventListener('click', function() {
+        window.location.reload()
+    })
+    
+    
+    return $reloadWrap
 }
+
 
 
 $randomBotton.addEventListener('click', function () {
