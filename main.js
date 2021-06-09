@@ -67,23 +67,21 @@ function createPlayer(playerObj) {
 
 
 function changeHP() {
-    console.log(this.hp)
-   this.hp -= getRandom(20)   
+    this.hp -= getRandom(20)   
     if (this.hp <= 0) {
         this.hp = 0
     } 
+    this.renderHP()
     return this.hp 
 }
 
-
-
-function elHP () {
+function elHP() {
     return document.querySelector(`.player${this.player} .life`);
 }
 
 
 function renderHP() {
-    player.changeHP().style.width = this.player.hp + '%'
+     this.elHP().style.width = this.hp + '%'
 }
 
 
@@ -112,8 +110,8 @@ function createReloadButton () {
 
 
 $randomBotton.addEventListener('click', function () {
-    changeHP(player1)
-    changeHP(player2)
+    player1.changeHP(getRandom(20))
+    player2.changeHP(getRandom(20))
 
     if(player1.hp ===0 || player2.hp ===0) {
         $randomBotton.disabled = true
