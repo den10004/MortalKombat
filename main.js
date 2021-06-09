@@ -87,13 +87,14 @@ function renderHP() {
 
 function playerLose(name) {
     const $loseTitle = createElement('div', 'loseTitle')
-    createReloadButton()
-   
+  
    if(name) {
     $loseTitle.innerText = name + ' wins'   
    } else {
     $loseTitle.innerText = 'draw'   
    }
+  
+   $arenas.appendChild(createReloadButton()) 
     return $loseTitle
 }
 
@@ -104,11 +105,11 @@ function getRandom(num) {
 function createReloadButton () {
     const $reloadWrap = createElement('div', 'reloadWrap')
     const $button = createElement('button', 'button')
+    $button.innerHTML = "restart";
 
-    $reloadWrap.appendChild($button, 'restart')
-
+    $reloadWrap.appendChild($button)
     $reloadWrap.addEventListener('click', function() {
-        window.location.reload()
+       window.location.reload()
     })
     
     
@@ -139,3 +140,4 @@ $randomBotton.addEventListener('click', function () {
 
 $arenas.appendChild(createPlayer(player1))
 $arenas.appendChild(createPlayer(player2))
+
