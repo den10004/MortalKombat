@@ -2,6 +2,7 @@ const $arenas = document.querySelector('.arenas')
 const $randomBotton = document.querySelector('.button')
 
 const $formFight = document.querySelector('.control')
+
 const HIT = {
     head: 30,
     body: 25,
@@ -19,9 +20,9 @@ const player1 = {
     attack: function (name) {
         console.log(name + "Fight...")
     },
-    changeHP: changeHP,
-    renderHP: renderHP,
-    elHP: elHP
+    changeHP,
+    renderHP,
+    elHP,
 
 }
 
@@ -34,9 +35,9 @@ const player2 = {
     attack: function (name) {
         console.log(name + "Fight...")
     },
-    changeHP: changeHP,
-    renderHP: renderHP,
-    elHP: elHP
+    changeHP,
+    renderHP,
+    elHP,
 }
 
 const playerName1 = player1.name
@@ -84,6 +85,7 @@ function changeHP() {
     return this.hp
 }
 
+
 function elHP() {
     return document.querySelector(`.player${this.player} .life`);
 }
@@ -123,7 +125,7 @@ function createReloadButton() {
 }
 
 
-
+/*
 function restart () {
     player1.changeHP(getRandom(20))
     player2.changeHP(getRandom(20))
@@ -139,10 +141,10 @@ function restart () {
     } else if (player1.hp === 0 && player2.hp === 0) {
         $arenas.appendChild(playerLose())
     }
-}
+}*/
 
 
-$randomBotton.addEventListener('click', restart)
+//$randomBotton.addEventListener('click', restart)
 
 
 $arenas.appendChild(createPlayer(player1))
@@ -159,9 +161,25 @@ function enemyAttack() {
     }
 }
 
-function fight () {
+function fight() {
     const edemy = enemyAttack()
     const attack = {}
+
+    player1.changeHP(getRandom(20))
+    player2.changeHP(getRandom(20))
+    /*
+        if(player1.hp ===0 || player2.hp ===0) {
+            $randomBotton.disabled = true
+        }*/
+
+    if (player1.hp === 0 && player1.hp < player2.hp) {
+        $arenas.appendChild(playerLose(player2.name))
+    } else if (player2.hp === 0 && player2.hp < player1.hp) {
+        $arenas.appendChild(playerLose(player1.name))
+    } else if (player1.hp === 0 && player2.hp === 0) {
+        $randomBotton.disabled = true
+        $arenas.appendChild(playerLose())
+    }
 
 
     for (let item of $formFight) {
@@ -172,8 +190,28 @@ function fight () {
         if (item.checked && item.name === 'defence') {
             attack.defence = item.value
         }
+
+        if (attack.hit === edemy.defence) {
+            //player1.changeHP(0)
+            console.log(attack.value)
+
+        } if (attack.defence === edemy.hit) {
+            //player2.changeHP(0)
+            console.log(edemy.value)
+        }
+
         item.checked = false;
+
     }
+
+    /*
+        
+            console.log(attack.hit)
+            console.log(attack.defence)
+            console.log(edemy.hit)
+            console.log(edemy.defence)
+        */
+
     console.log('####: a', attack)
     console.log('####: e', edemy)
 }
