@@ -88,6 +88,7 @@ function changeHP() {
 
 function elHP() {
     return document.querySelector(`.player${this.player} .life`);
+
 }
 
 function renderHP() {
@@ -165,8 +166,8 @@ function fight() {
     const edemy = enemyAttack()
     const attack = {}
 
-    player1.changeHP(getRandom(20))
-    player2.changeHP(getRandom(20))
+    //player1.changeHP(getRandom(20))
+    //player2.changeHP(getRandom(20))
     /*
         if(player1.hp ===0 || player2.hp ===0) {
             $randomBotton.disabled = true
@@ -190,17 +191,21 @@ function fight() {
         if (item.checked && item.name === 'defence') {
             attack.defence = item.value
         }
-
-        if (attack.hit === edemy.defence) {
-            //player1.changeHP(0)
-            console.log(attack.value)
-
-        } if (attack.defence === edemy.hit) {
-            //player2.changeHP(0)
-            console.log(edemy.value)
-        }
-
         item.checked = false;
+    }
+
+
+    if (attack.hit !== edemy.defence) {
+        console.log(attack.value)
+        player1.changeHP(edemy.value)
+
+
+    } if (attack.defence !== edemy.hit) {
+        player2.changeHP(attack.value)
+        console.log(edemy.value)
+    } else {
+        player1.changeHP(0)
+        player2.changeHP(0)
 
     }
 
