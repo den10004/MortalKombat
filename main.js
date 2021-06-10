@@ -196,26 +196,18 @@ function fight() {
 
 
     if (attack.hit !== edemy.defence) {
-        console.log(attack.value)
-        player1.changeHP(edemy.value)
-
-
-    } if (attack.defence !== edemy.hit) {
-        player2.changeHP(attack.value)
         console.log(edemy.value)
-    } else {
-        player1.changeHP(0)
-        player2.changeHP(0)
+        player1.changeHP(edemy.value)
+    } 
+    if (attack.defence !== edemy.hit) {
+         player2.changeHP(attack.value)
+        console.log(attack.value)
+    } 
+        else {
+        player1.changeHP(attack.value)
+        player2.changeHP(edemy.value)
 
     }
-
-    /*
-        
-            console.log(attack.hit)
-            console.log(attack.defence)
-            console.log(edemy.hit)
-            console.log(edemy.defence)
-        */
 
     console.log('####: a', attack)
     console.log('####: e', edemy)
