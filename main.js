@@ -88,7 +88,6 @@ function elHP() {
     return document.querySelector(`.player${this.player} .life`);
 }
 
-
 function renderHP() {
     this.elHP().style.width = this.hp + '%'
 }
@@ -125,7 +124,7 @@ function createReloadButton() {
 
 
 
-$randomBotton.addEventListener('click', function () {
+function restart () {
     player1.changeHP(getRandom(20))
     player2.changeHP(getRandom(20))
 
@@ -140,9 +139,10 @@ $randomBotton.addEventListener('click', function () {
     } else if (player1.hp === 0 && player2.hp === 0) {
         $arenas.appendChild(playerLose())
     }
+}
 
-})
 
+$randomBotton.addEventListener('click', restart)
 
 
 $arenas.appendChild(createPlayer(player1))
@@ -159,8 +159,7 @@ function enemyAttack() {
     }
 }
 
-$formFight.addEventListener('submit', function (e) {
-    e.preventDefault();
+function fight () {
     const edemy = enemyAttack()
     const attack = {}
 
@@ -177,5 +176,11 @@ $formFight.addEventListener('submit', function (e) {
     }
     console.log('####: a', attack)
     console.log('####: e', edemy)
+}
+
+
+$formFight.addEventListener('submit', function (e) {
+    e.preventDefault();
+    fight()
 })
 
