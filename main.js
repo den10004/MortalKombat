@@ -85,6 +85,12 @@ const player2 = {
 const playerName1 = player1.name
 const playerName2 = player2.name
 
+let date = new Date();
+let data = (date.getHours() + ':' + date.getMinutes())
+
+
+
+
 function createElement(tag, className) {
     const $tag = document.createElement(tag)
     if (className) {
@@ -130,7 +136,6 @@ function changeHP() {
 
 function elHP() {
     return document.querySelector(`.player${this.player} .life`);
-
 }
 
 function renderHP() {
@@ -143,6 +148,7 @@ function playerLose(name) {
 
     if (name) {
         $loseTitle.innerText = name + ' wins'
+
     } else {
         $loseTitle.innerText = 'draw'
     }
@@ -175,12 +181,13 @@ function enemyAttack() {
     const defence = ATTACK[getRandom(3) - 1]
 
     return {
+
         value: getRandom([HIT[hit]]),
         hit,
         defence
     }
 }
-
+/*
 function fight() {
     const edemy = enemyAttack()
     const attack = {}
@@ -193,21 +200,25 @@ function fight() {
         $randomBotton.disabled = true
         $arenas.appendChild(playerLose())
     }
+ 
 
     console.log('####: a', attack)
     console.log('####: e', edemy)
-}
+}*/
 
 function playerAttack() {
     const attack = {}
+
 
     for (let item of $formFight) {
         if (item.checked && item.name === 'hit') {
             attack.value = getRandom(HIT[item.value])
             attack.hit = item.value
+
         }
         if (item.checked && item.name === 'defence') {
             attack.defence = item.value
+
         }
         item.checked = false;
     }
@@ -217,35 +228,89 @@ function playerAttack() {
 function showResult() {
     if (player1.hp === 0 && player1.hp < player2.hp) {
         $arenas.appendChild(playerLose(player2.name))
+        generateLogs('end', player1, player2)
     } else if (player2.hp === 0 && player2.hp < player1.hp) {
         $arenas.appendChild(playerLose(player1.name))
+        generateLogs('end', player2, player1)
     } else if (player1.hp === 0 && player2.hp === 0) {
         $randomBotton.disabled = true
         $arenas.appendChild(playerLose())
+        generateLogs('draw')
     }
+
 }
 
+
+
+
 function generateLogs(type, player1, player2) {
-    const text = logs[type][0].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
-    console.log(text)
-    const el = `<p>${text}<p>`
+
+    let x = Math.ceil((Math.random()) * 17)
+    let y = Math.ceil((Math.random()) * 7)
+    //const text = logs[type][0].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
+    const end = logs.end[1].replace('[playerWins]', player2.name).replace('[playerLose]', player1.name)
+
+    switch (type) {
+        case 'draw':
+            el = `<p>${logs.draw}<p>`;
+            break;
+        case 'hit':
+            el = `<p>${data} ${logs[type][x].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name)} - ${100 - player1.hp} [${player1.hp} / 100] <p>`;
+            break;
+        case 'end':
+            el = `<p>${end}<p>`;
+            break;
+        case 'defence':
+            el = `<p>${data} ${logs[type][y].replace('[playerKick]', player2.name).replace('[playerDefence]', player1.name)} - ${100 - player2.hp} [${player2.hp} / 100] <p>`;
+            break;
+    }
+
+
+    //const text = logs[type][0].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
+    /* const el = `<p>${data} ${text} - ${100 - player1.hp} [${player1.hp} / 100] <p>`*/
     $chat.insertAdjacentHTML('afterbegin', el)
 }
 
 
+function startLog() {
+    const start = logs.start.replace('[time]', data).replace('[player1]', player2.name).replace('[player2]', player1.name)
+    const startLog = `<p>${start}<p>`
+    $chat.insertAdjacentHTML('afterbegin', startLog)
+}
+startLog()
+/*
+
+function endLog(player1, player2) {
+
+    if (player1, player2) {
+        const end = logs.end[1].replace('[playerWins]', player2.name).replace('[playerLose]', player1.name)
+
+        const endLog = `<p>${end}<p>`
+        $chat.insertAdjacentHTML('afterbegin', endLog)
+    }
+    else {
+        const endLog = `<p>${logs.draw}<p>`
+        $chat.insertAdjacentHTML('afterbegin', endLog)
+    }
+
+}
+*/
+//endLog(player1, player2)
+
+
 $formFight.addEventListener('submit', function (e) {
     e.preventDefault();
- 
+
     const player = playerAttack();
     const enemy = enemyAttack()
 
-    if(player.defence !== enemy.hit) {
+    if (player.defence !== enemy.hit) {
         player1.changeHP(enemy.value);
         player1.renderHP
         generateLogs('hit', player2, player1)
     }
 
-    if(enemy.defence !== player.hit) {
+    if (enemy.defence !== player.hit) {
         player2.changeHP(player.value);
         player2.renderHP()
         generateLogs('hit', player1, player2)
