@@ -214,6 +214,7 @@ function playerAttack() {
         if (item.checked && item.name === 'hit') {
             attack.value = getRandom(HIT[item.value])
             attack.hit = item.value
+   
 
         }
         if (item.checked && item.name === 'defence') {
@@ -224,6 +225,8 @@ function playerAttack() {
     }
     return attack
 }
+
+
 
 function showResult() {
     if (player1.hp === 0 && player1.hp < player2.hp) {
@@ -244,58 +247,33 @@ function showResult() {
 
 
 function generateLogs(type, player1, player2) {
-
-    let x = Math.ceil((Math.random()) * 17)
-    let y = Math.ceil((Math.random()) * 7)
-    //const text = logs[type][0].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
-    const end = logs.end[1].replace('[playerWins]', player2.name).replace('[playerLose]', player1.name)
+ 
+      const end = logs.end[1].replace('[playerWins]', player2.name).replace('[playerLose]', player1.name)
 
     switch (type) {
+        case 'start':
+            el = `<p>${logs.start.replace('[time]', data).replace('[player1]', player2.name).replace('[player2]', player1.name)}<p>`;
+            break;
         case 'draw':
             el = `<p>${logs.draw}<p>`;
             break;
         case 'hit':
-            el = `<p>${data} ${logs[type][x].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name)} - ${100 - player1.hp} [${player1.hp} / 100] <p>`;
+            el = `<p>${data} ${logs[type][getRandom(logs[type].length -1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name)} - ${100 - player2.hp} [${player1.hp} / 100] <p>`;
             break;
         case 'end':
             el = `<p>${end}<p>`;
             break;
         case 'defence':
-            el = `<p>${data} ${logs[type][y].replace('[playerKick]', player2.name).replace('[playerDefence]', player1.name)} - ${100 - player2.hp} [${player2.hp} / 100] <p>`;
+            el = `<p>${data} ${logs[type][getRandom(logs[type].length -1)].replace('[playerKick]', player2.name).replace('[playerDefence]', player1.name)} - ${100 - player1.hp} [${player2.hp} / 100] <p>`;
             break;
     }
 
-
-    //const text = logs[type][0].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name);
-    /* const el = `<p>${data} ${text} - ${100 - player1.hp} [${player1.hp} / 100] <p>`*/
     $chat.insertAdjacentHTML('afterbegin', el)
 }
 
 
-function startLog() {
-    const start = logs.start.replace('[time]', data).replace('[player1]', player2.name).replace('[player2]', player1.name)
-    const startLog = `<p>${start}<p>`
-    $chat.insertAdjacentHTML('afterbegin', startLog)
-}
-startLog()
-/*
+generateLogs('start', player2, player1)
 
-function endLog(player1, player2) {
-
-    if (player1, player2) {
-        const end = logs.end[1].replace('[playerWins]', player2.name).replace('[playerLose]', player1.name)
-
-        const endLog = `<p>${end}<p>`
-        $chat.insertAdjacentHTML('afterbegin', endLog)
-    }
-    else {
-        const endLog = `<p>${logs.draw}<p>`
-        $chat.insertAdjacentHTML('afterbegin', endLog)
-    }
-
-}
-*/
-//endLog(player1, player2)
 
 
 $formFight.addEventListener('submit', function (e) {
