@@ -187,24 +187,6 @@ function enemyAttack() {
         defence
     }
 }
-/*
-function fight() {
-    const edemy = enemyAttack()
-    const attack = {}
-
-    if (player1.hp === 0 && player1.hp < player2.hp) {
-        $arenas.appendChild(playerLose(player2.name))
-    } else if (player2.hp === 0 && player2.hp < player1.hp) {
-        $arenas.appendChild(playerLose(player1.name))
-    } else if (player1.hp === 0 && player2.hp === 0) {
-        $randomBotton.disabled = true
-        $arenas.appendChild(playerLose())
-    }
- 
-
-    console.log('####: a', attack)
-    console.log('####: e', edemy)
-}*/
 
 function playerAttack() {
     const attack = {}
