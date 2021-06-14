@@ -1,3 +1,7 @@
+//export {logs} from './logs.js'
+//export {HIT, ATTACK} from './varibles.js'
+//console.log(logs)
+
 const $arenas = document.querySelector('.arenas')
 const $randomBotton = document.querySelector('.button')
 const $chat = document.querySelector('.chat')
@@ -248,6 +252,9 @@ function generateLogs(type, player1, player2) {
         case 'defence':
             el = `<p>${data} ${logs[type][getRandom(logs[type].length -1)].replace('[playerKick]', player2.name).replace('[playerDefence]', player1.name)} - ${100 - player1.hp} [${player2.hp} / 100] <p>`;
             break;
+        default:
+            alert("ошибка");
+            break;
     }
 
     $chat.insertAdjacentHTML('afterbegin', el)
@@ -268,9 +275,9 @@ $formFight.addEventListener('submit', function (e) {
         player1.changeHP(enemy.value);
         player1.renderHP
         generateLogs('hit', player2, player1)
-    }
+    };
 
-    if (enemy.defence !== player.hit) {
+     if (enemy.defence !== player.hit) {
         player2.changeHP(player.value);
         player2.renderHP()
         generateLogs('hit', player1, player2)
