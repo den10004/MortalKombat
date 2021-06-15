@@ -1,41 +1,12 @@
 import {logs} from './logs.js'
-import {HIT, ATTACK, data /*player1, player2*/} from './variables.js'
+import {data, getRandom} from './utils.js'
+import {HIT, ATTACK, player1, player2} from './variables.js'
 
 const $arenas = document.querySelector('.arenas')
 const $randomBotton = document.querySelector('.button')
 const $chat = document.querySelector('.chat')
 
 const $formFight = document.querySelector('.control')
-
-
-const player1 = {
-    player: 1,
-    name: 'SCORPION',
-    hp: 100,
-    img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
-    weapon: ['dfd', 'ghh'],
-    attack: function (name) {
-        console.log(name + "Fight...")
-    },
-    changeHP,
-    renderHP,
-    elHP,
-
-}
-
-const player2 = {
-    player: 2,
-    name: 'DEKSTER',
-    hp: 100,
-    img: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
-    weapon: ['dfd', 'ghh'],
-    attack: function (name) {
-        console.log(name + "Fight...")
-    },
-    changeHP,
-    renderHP,
-    elHP,
-}
 
 
 const createElement = (tag, className) => {
@@ -70,25 +41,6 @@ const createPlayer = (playerObj) => {
     return $player
 }
 
-function elHP () {
-    return document.querySelector(`.player${this.player} .life`);
-}
-
-function renderHP() {
-    this.elHP().style.width = this.hp + '%'
-}
-
-function changeHP () {
-    this.hp -= getRandom(20)
-    if (this.hp <= 0) {
-        this.hp = 0
-    }
-    this.renderHP()
-    return this.hp
-}
-
-
-
 const playerLose = (name) => {
     const $loseTitle = createElement('div', 'loseTitle')
 
@@ -101,10 +53,6 @@ const playerLose = (name) => {
 
     $arenas.appendChild(createReloadButton())
     return $loseTitle
-}
-
-const getRandom = (num) => {
-    return Math.ceil(Math.random() * num)
 }
 
 const createReloadButton = () => {
