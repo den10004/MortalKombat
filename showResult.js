@@ -1,5 +1,4 @@
-import {generateLogs, $randomBotton} from './main.js'
-import {player1, player2} from './variables.js'
+import {generateLogs, $randomBotton, player1, player2} from './main.js'
 import {playerLose} from './playerLose.js'
 const $arenas = document.querySelector('.arenas')
 

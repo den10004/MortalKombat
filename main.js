@@ -1,10 +1,13 @@
 import {logs} from './logs.js'
 import {data, getRandom} from './utils.js'
-import {player1, player2} from './variables.js'
 import {playerAttack} from './playerAttack.js'
+import {playerLose} from './playerLose.js'
 import {enemyAttack} from './enemyAttack.js'
 import {createElement} from './createElement.js'
-import {showResult} from './showResult.js'
+//import {showResult} from './showResult.js'
+import Player from './Player';
+console.log(Player)
+
 
 export const $arenas = document.querySelector('.arenas')
 export const $randomBotton = document.querySelector('.button')
@@ -34,8 +37,80 @@ const createPlayer = (playerObj) => {
     return $player
 }
 
-$arenas.appendChild(createPlayer(player1))
-$arenas.appendChild(createPlayer(player2))
+/*
+export const player3 = new Player ({
+    player: 1,
+    name: 'SCORPION',
+    hp: 100,
+    img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
+  
+
+});
+console.log(player3)
+*/
+const player1 = {
+    player: 1,
+    name: 'SCORPION',
+    hp: 100,
+    img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
+    weapon: ['dfd', 'ghh'],
+    attack: function (name) {
+        console.log(name + "Fight...")
+    },
+    changeHP,
+    renderHP,
+    elHP,
+
+};
+
+ const player2 = {
+    player: 2,
+    name: 'DEKSTER',
+    hp: 100,
+    img: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
+    weapon: ['dfd', 'ghh'],
+    attack: function (name) {
+        console.log(name + "Fight...")
+    },
+    changeHP,
+    renderHP,
+    elHP,
+}
+
+function elHP () {
+    return document.querySelector(`.player${this.player} .life`);
+}
+
+function renderHP() {
+    this.elHP().style.width = this.hp + '%'
+}
+
+function changeHP () {
+    this.hp -= getRandom(20)
+    if (this.hp <= 0) {
+        this.hp = 0
+    }
+    this.renderHP()
+    return this.hp
+}
+
+
+const showResult = () => {
+    if (player1.hp === 0 && player1.hp < player2.hp) {
+        $arenas.appendChild(playerLose(player2.name))
+        generateLogs('end', player1, player2)
+    } else if (player2.hp === 0 && player2.hp < player1.hp) {
+        $arenas.appendChild(playerLose(player1.name))
+        generateLogs('end', player2, player1)
+    } else if (player1.hp === 0 && player2.hp === 0) {
+        $randomBotton.disabled = true
+        $arenas.appendChild(playerLose())
+        generateLogs('draw')
+    }
+}
+
+
+
 
 
 export const generateLogs = (type, player1, player2) => {
@@ -74,18 +149,18 @@ generateLogs('start', player2, player1)
 $formFight.addEventListener('submit', function (e) {
     e.preventDefault();
 
-    const player = playerAttack();
-    const enemy = enemyAttack()
+    const {hit, defence, value} = playerAttack();
+    const {hit: hitEnemy, defence: defenceEnemy, value: valueEnemy} = enemyAttack()
 
-    if (player.defence !== enemy.hit) {
-        player1.changeHP(enemy.value);
+    if (defence !== hitEnemy) {
+        player1.changeHP(valueEnemy);
         player1.renderHP
         generateLogs('hit', player2, player1)
         generateLogs('defence', player1, player2)
     }
 
-    if (enemy.defence !== player.hit) {
-        player2.changeHP(player.value);
+    if (defenceEnemy !== hit) {
+        player2.changeHP(value);
         player2.renderHP()
         generateLogs('hit', player1, player2)
         generateLogs('defence', player2, player1)
@@ -94,3 +169,6 @@ $formFight.addEventListener('submit', function (e) {
     showResult()
 })
 
+
+$arenas.appendChild(createPlayer(player1))
+$arenas.appendChild(createPlayer(player2))
