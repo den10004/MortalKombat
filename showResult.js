@@ -1,6 +1,6 @@
-import {generateLogs, $randomBotton, player1, player2} from './main.js'
+import {generateLogs, $randomBotton, player1, player2, $arenas} from './main.js'
 import {playerLose} from './playerLose.js'
-const $arenas = document.querySelector('.arenas')
+
 
 export const showResult = () => {
     if (player1.hp === 0 && player1.hp < player2.hp) {

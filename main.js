@@ -1,19 +1,24 @@
 import {logs} from './logs.js'
-import {data, getRandom} from './utils.js'
+import {data, getRandom, createElement} from './utils.js'
 import {playerAttack} from './playerAttack.js'
 import {playerLose} from './playerLose.js'
 import {enemyAttack} from './enemyAttack.js'
-import {createElement} from './createElement.js'
-//import {showResult} from './showResult.js'
-import Player from './Player';
-console.log(Player)
-
+//import {createElement} from './createElement.js'
+import {showResult} from './showResult.js'
+import Player from './Player/index.js';
+import Game from './Game/index.js';
 
 export const $arenas = document.querySelector('.arenas')
 export const $randomBotton = document.querySelector('.button')
 const $chat = document.querySelector('.chat')
 export const $formFight = document.querySelector('.control')
 
+
+
+
+
+
+/*
 const createPlayer = (playerObj) => {
     const $player = createElement('div', 'player' + playerObj.player)
     const $progressbar = createElement('div', 'progressbar')
@@ -35,7 +40,7 @@ const createPlayer = (playerObj) => {
     $arenas.appendChild($player)
 
     return $player
-}
+}*/
 
 /*
 export const player3 = new Player ({
@@ -48,6 +53,28 @@ export const player3 = new Player ({
 });
 console.log(player3)
 */
+export const player1 = new Player ({
+    player: 1,
+    name: 'SCORPION',
+    hp: 100,
+    img: 'http://reactmarathon-api.herokuapp.com/assets/scorpion.gif',
+    rootSelector: 'arenas'
+});
+
+
+export const player2 = new Player ({
+    player: 2,
+    name: 'DEKSTER',
+    hp: 100,
+    img: 'http://reactmarathon-api.herokuapp.com/assets/liukang.gif',
+    rootSelector: 'arenas'
+});
+
+export const game = new Game(player1, player2);
+//game.start();
+
+
+/*
 const player1 = {
     player: 1,
     name: 'SCORPION',
@@ -75,8 +102,8 @@ const player1 = {
     changeHP,
     renderHP,
     elHP,
-}
-
+}*/
+/*
 function elHP () {
     return document.querySelector(`.player${this.player} .life`);
 }
@@ -93,8 +120,8 @@ function changeHP () {
     this.renderHP()
     return this.hp
 }
-
-
+*/
+/*
 const showResult = () => {
     if (player1.hp === 0 && player1.hp < player2.hp) {
         $arenas.appendChild(playerLose(player2.name))
@@ -108,10 +135,7 @@ const showResult = () => {
         generateLogs('draw')
     }
 }
-
-
-
-
+*/
 
 export const generateLogs = (type, player1, player2) => {
  
@@ -142,7 +166,7 @@ export const generateLogs = (type, player1, player2) => {
     $chat.insertAdjacentHTML('afterbegin', el)
 }
 
-generateLogs('start', player2, player1)
+
 
 
 
@@ -169,6 +193,9 @@ $formFight.addEventListener('submit', function (e) {
     showResult()
 })
 
-
-$arenas.appendChild(createPlayer(player1))
-$arenas.appendChild(createPlayer(player2))
+function init() {
+    player1.createPlayer()
+    player2.createPlayer()
+    generateLogs('start', player2, player1)
+}
+init()
