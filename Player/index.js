@@ -1,6 +1,6 @@
 import {getRandom, createElement} from '../utils.js'
 
-export const $arenas = document.querySelector('.arenas')
+const $arenas = document.querySelector('.arenas')
 
 class Player {
     constructor(props) {
@@ -10,7 +10,6 @@ class Player {
         this.player = props.player;
         this.selector = `player${this.player}`;
         this.rootSelector = props.rootSelector
-
     }
 
 
