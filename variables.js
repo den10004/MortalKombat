@@ -1,4 +1,4 @@
-//import {getRandom} from './utils.js'
+import { getRandom } from './utils.js'
 
 export const HIT = {
     head: 30,
@@ -9,7 +9,26 @@ export const HIT = {
 
 export const ATTACK = ['head', 'body', 'foot'];
 
+const api = async () => {
+    const q = await fetch(`https://reactmarathon-api.herokuapp.com/api/mk/players`)
+    const dd = await q.json()
+
+    let p1 = dd[getRandom(23) - 1]
+    let p2 = dd[getRandom(23) - 1]
+
+    console.log([p1, p2])
+
+    return [p1, p2];
+ 
+}
+api()
 /*
+let [p1, p2] = api() 
+console.log(p1)
+console.log(p2)*/
+
+//тут проблема
+
 export const player1 = {
     player: 1,
     name: 'SCORPION',
@@ -39,7 +58,7 @@ export const player2 = {
     elHP,
 }
 
-export function elHP () {
+export function elHP() {
     return document.querySelector(`.player${this.player} .life`);
 }
 
@@ -47,7 +66,7 @@ export function renderHP() {
     this.elHP().style.width = this.hp + '%'
 }
 
-export function changeHP () {
+export function changeHP() {
     this.hp -= getRandom(20)
     if (this.hp <= 0) {
         this.hp = 0
@@ -55,4 +74,3 @@ export function changeHP () {
     this.renderHP()
     return this.hp
 }
-*/
