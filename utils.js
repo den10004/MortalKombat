@@ -1,3 +1,4 @@
+  
 let date = new Date();
 export let data = (date.getHours() + ':' + date.getMinutes())
 

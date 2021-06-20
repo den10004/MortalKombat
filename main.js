@@ -1,10 +1,10 @@
-import {logs} from './logs.js'
-import {data, getRandom} from './utils.js'
-import {player1, player2} from './variables.js'
-import {playerAttack} from './playerAttack.js'
-import {enemyAttack} from './enemyAttack.js'
-import {createElement} from './createElement.js'
-import {showResult} from './showResult.js'
+import { logs } from './logs.js'
+import { data, getRandom } from './utils.js'
+import { player1, player2 } from './variables.js'
+import { playerAttack } from './playerAttack.js'
+import { enemyAttack } from './enemyAttack.js'
+import { createElement } from './createElement.js'
+import { showResult } from './showResult.js'
 
 export const $arenas = document.querySelector('.arenas')
 export const $randomBotton = document.querySelector('.button')
@@ -34,14 +34,24 @@ const createPlayer = (playerObj) => {
     return $player
 }
 
+
+
 $arenas.appendChild(createPlayer(player1))
 $arenas.appendChild(createPlayer(player2))
 
 
+
+
+
+//start()
+
+
+
+
 export const generateLogs = (type, player1, player2) => {
- 
-      const end = logs.end[1].replace('[playerWins]', player2.name).replace('[playerLose]', player1.name)
-        let el
+
+    const end = logs.end[1].replace('[playerWins]', player2.name).replace('[playerLose]', player1.name)
+    let el
 
     switch (type) {
         case 'start':
@@ -51,19 +61,21 @@ export const generateLogs = (type, player1, player2) => {
             el = `<p>${logs.draw}<p>`;
             break;
         case 'hit':
-            el = `<p>${data} ${logs[type][getRandom(logs[type].length -1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player1.name)} - ${100 - player2.hp} [${player2.hp} / 100] <p>`;
+
+            el = `<p>${data} ${logs[type][getRandom(logs[type].length - 1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player1.name)} - ${100 - player2.hp} [${player2.hp} / 100] <p>`;
             break;
         case 'end':
             el = `<p>${end}<p>`;
             break;
         case 'defence':
-            el = `<p>${data} ${logs[type][getRandom(logs[type].length -1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name)} - ${100 - player1.hp} [${player2.hp} / 100] <p>`;
+
+            el = `<p>${data} ${logs[type][getRandom(logs[type].length - 1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name)} - ${100 - player1.hp} [${player2.hp} / 100] <p>`;
             break;
-        default: 
-        console.log('ошибка');
-        break;
+        default:
+            console.log('ошибка');
+            break;
     }
-   
+
     $chat.insertAdjacentHTML('afterbegin', el)
 }
 
@@ -89,11 +101,12 @@ $formFight.addEventListener('submit', function (e) {
     if (enemy.defence !== player.hit) {
         player2.changeHP(player.value);
         player2.renderHP()
-        generateLogs('hit', player1, player2)   
+
+        generateLogs('hit', player1, player2)
+
     } else {
         generateLogs('defence', player1, player2)
     }
 
     showResult()
 })
-

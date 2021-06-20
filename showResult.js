@@ -1,3 +1,4 @@
+  
 import {generateLogs, $randomBotton} from './main.js'
 import {player1, player2} from './variables.js'
 import {playerLose} from './playerLose.js'
