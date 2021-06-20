@@ -61,12 +61,14 @@ export const generateLogs = (type, player1, player2) => {
             el = `<p>${logs.draw}<p>`;
             break;
         case 'hit':
+
             el = `<p>${data} ${logs[type][getRandom(logs[type].length - 1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player1.name)} - ${100 - player2.hp} [${player2.hp} / 100] <p>`;
             break;
         case 'end':
             el = `<p>${end}<p>`;
             break;
         case 'defence':
+
             el = `<p>${data} ${logs[type][getRandom(logs[type].length - 1)].replace('[playerKick]', player1.name).replace('[playerDefence]', player2.name)} - ${100 - player1.hp} [${player2.hp} / 100] <p>`;
             break;
         default:
@@ -99,7 +101,9 @@ $formFight.addEventListener('submit', function (e) {
     if (enemy.defence !== player.hit) {
         player2.changeHP(player.value);
         player2.renderHP()
+
         generateLogs('hit', player1, player2)
+
     } else {
         generateLogs('defence', player1, player2)
     }
